@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Undernail</title>
+    <!-- Retro Pixel Font from Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game-wrapper">
+        <!-- Retro CRT Screen Container -->
+        <div class="crt-screen">
+            <div class="scanlines"></div>
+            <div class="vignette"></div>
+            <div class="screen-flicker"></div>
+            
+            <!-- Screen 1: Name Selection (Giriş Ekranı) -->
+            <div id="intro-screen" class="screen active">
+                <div class="retro-title">UNDERNAIL</div>
+                <div class="intro-dialog">
+                    <p class="typing-text">Bir zamanlar... Derin salonlarda...</p>
+                    <p class="prompt-text">Kendine bir isim seç (En fazla 12 karakter):</p>
+                </div>
+                <div class="name-input-container">
+                    <input type="text" id="player-name-input" maxlength="12" placeholder="ISIM YAZ..." autofocus autocomplete="off">
+                    <button id="start-game-btn" class="retro-btn">OYUNA BASLA</button>
+                </div>
+                <div class="intro-footer">
+                    [ Kontroller: Yon Tuslari / WASD ile hareket et ]<br>
+                    [ Etkilesim icin 'Z' veya 'ENTER' kullan ]
+                </div>
+            </div>
+
+            <!-- Screen 2: Game Layout (Canvas & Dialog overlay) -->
+            <div id="game-screen" class="screen">
+                <div class="canvas-container">
+                    <canvas id="gameCanvas" width="800" height="480"></canvas>
+                    
+                    <!-- Dialog overlay box for conversations -->
+                    <div id="dialog-overlay" class="dialog-box hidden">
+                        <div class="dialog-avatar">
+                            <canvas id="avatarCanvas" width="80" height="80"></canvas>
+                        </div>
+                        <div class="dialog-content">
+                            <span class="dialog-speaker">Karakter</span>
+                            <p class="dialog-text">Burası 7/B Salonu...</p>
+                            <span class="dialog-arrow">▼</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Custom HUD Bar (Undertale HUD) -->
+                <div class="game-hud">
+                    <div class="hud-left">
+                        <div class="hud-name-level">
+                            <span id="hud-player-name" class="hud-label">OYUNCU</span>
+                            <span id="hud-player-level" class="hud-level">LV 1</span>
+                        </div>
+                        <div class="xp-bar-container">
+                            <div id="hud-xp-bar" class="xp-bar-fill" style="width: 0%;"></div>
+                        </div>
+                    </div>
+                    <div class="hud-center">
+                        <span class="hud-hp-label">HP</span>
+                        <div class="hp-bar-container">
+                            <div id="hud-hp-bar" class="hp-bar-fill" style="width: 100%;"></div>
+                        </div>
+                        <span id="hud-hp-text" class="hud-hp-text">20 / 20</span>
+                    </div>
+                    <div class="hud-right">
+                        <span class="hud-coin-label">KIRKEL:</span>
+                        <span id="hud-kirkel-count" class="hud-coin-count">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Screen 3: Shop (Market Ekranı) -->
+            <div id="shop-screen" class="screen">
+                <div class="shop-header">
+                    <div class="shop-title">7/B SALONU - GEZGIN MARKET</div>
+                    <button id="exit-shop-btn" class="retro-btn shop-exit-btn">CIKIS</button>
+                </div>
+
+                <div class="shop-body">
+                    <div class="shop-merchant">
+                        <canvas id="shopkeeperCanvas" width="120" height="120"></canvas>
+                        <div id="shopkeeper-bubble" class="speech-bubble">Hos geldin! Kirkel'lerini harcamak icin guzel bir gun!</div>
+                    </div>
+                    <div class="shop-items-list" id="shop-items-container">
+                        <!-- Dynamic items will be generated here -->
+                    </div>
+                </div>
+                <div class="shop-footer">
+                    <div class="shop-kirkel-hud">
+                        Cuzdanin: <span id="shop-kirkel-amount" class="gold-text">0</span> KIRKEL
+                    </div>
+                    <div id="shop-status-msg" class="shop-status-text">Urun secmek icin tikla ya da sayilara bas.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Virtual Joystick / Buttons for Touch / Mouse ease of testing -->
+        <div class="touch-controls">
+            <div class="dpad">
+                <button class="dpad-btn up" id="btn-up">▲</button>
+                <div class="dpad-row">
+                    <button class="dpad-btn left" id="btn-left">◀</button>
+                    <button class="dpad-btn center" style="visibility: hidden;">●</button>
+                    <button class="dpad-btn right" id="btn-right">▶</button>
+                </div>
+                <button class="dpad-btn down" id="btn-down">▼</button>
+            </div>
+            <div class="action-buttons">
+                <button class="action-btn select" id="btn-z">Z (SEC)</button>
+                <button class="action-btn back" id="btn-x">X (IPTAL)</button>
+            </div>
+        </div>
+    </div>
+    <script src="game.js"></script>
+</body>
+</html>
