@@ -161,11 +161,11 @@ const Images = {
     kayra: new Image(),
     arel: new Image()
 };
-Images.player.src = 'assets/zafer_aygun.png';
+Images.player.src = 'assets/zafer aygün.png';
 Images.mustafa.src = 'assets/mustafa.png';
 Images.oktay.src = 'assets/oktay.png';
 Images.kayra.src = 'assets/kayra.png';
-Images.arel.src = 'assets/arel.png';
+Images.arel.src = 'assets/AREL.png';
 
 // ==========================================
 // 2. GAME STATE AND CONFIG
